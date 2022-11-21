@@ -1,15 +1,31 @@
 package com.example.capgemini.Application.service;
 
 import com.example.capgemini.Application.dao.UserRepository;
+import com.example.capgemini.Application.dto.UserDTO;
+import com.example.capgemini.Application.entity.User;
+import com.example.capgemini.Application.service.Interfaces.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Log4j
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    @Override
+    public UserDTO getUsers(String surName) {
+        User user = userRepository.findUserBySurName(surName);
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setName(user.getName());
+        userDTO.setSurname(user.getSurname());
+        userDTO.setBalance(user.getBalance());
+        userDTO.setTransactions(user.getAccount().getTransactions());
+
+        return userDTO;
+    }
 }

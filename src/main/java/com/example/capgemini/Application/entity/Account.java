@@ -3,22 +3,25 @@ package com.example.capgemini.Application.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
-@Builder
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "account")
-public class Account {
+public class Account implements Serializable {
 
     @Id
+    @Column(name = "account_id")
     private Integer accountID;
     @Column(name = "initial_credit")
     private Integer initialCredit;
-    @Column(name = "transactions")
-    private Transaction transaction;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "transactions_fk", referencedColumnName = "account_id")
+    private List<Transaction> transactions;
 
 }

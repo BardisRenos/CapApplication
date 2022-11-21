@@ -3,6 +3,7 @@ package com.example.capgemini.Application.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,10 +12,11 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "account")
-public class Transaction {
+@Table(name = "transaction")
+public class Transaction implements Serializable {
 
     @Id
+    @Column(name = "account_id")
     private Integer transactionID;
     @Column(name = "customerID")
     private Integer customerID;

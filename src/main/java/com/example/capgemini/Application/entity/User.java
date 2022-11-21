@@ -11,10 +11,11 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
+@Table(name = "`user`")
 public class User implements Serializable {
 
     @Id
+    @Column(name = "customer_id")
     private Integer customerID;
     @Column(name = "initial_credit")
     private Integer initialCredit;
@@ -24,5 +25,9 @@ public class User implements Serializable {
     private String surname;
     @Column(name = "balance")
     private Integer balance;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
 }
