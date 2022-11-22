@@ -1,6 +1,7 @@
 package com.example.capgemini.Application.controller;
 
 import com.example.capgemini.Application.dto.UserDTO;
+import com.example.capgemini.Application.exception.UserNotFoundException;
 import com.example.capgemini.Application.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class UserController {
 
     @GetMapping("getUserBySurName")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getUser(@RequestParam(value = "surname") String surname) {
+    public UserDTO getUser(@RequestParam(value = "surname") String surname) throws UserNotFoundException {
         return userService.getUserBySurName(surname);
     }
 }

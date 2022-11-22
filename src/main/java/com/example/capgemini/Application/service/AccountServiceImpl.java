@@ -28,7 +28,6 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
-
     @Override
     public AccountDTO createAccount(UserDetailsDTO userDTO) {
         Account account = new Account();
@@ -36,11 +35,9 @@ public class AccountServiceImpl implements AccountService {
 
         if (user.getInitialCredit() != 0) {
             Integer randomNumber = new Random().nextInt(9000) + 1000;
-
             account.setAccountID(user.getCustomerID());
             account.setInitialCredit(user.getInitialCredit());
             account.setTransactions(Arrays.asList(new Transaction(randomNumber, user.getCustomerID(), user.getInitialCredit(), LocalDateTime.now())));
-
         } else {
             account.setAccountID(user.getCustomerID());
             account.setInitialCredit(user.getInitialCredit());
