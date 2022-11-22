@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("select p from User p join fetch p.account c where p.surname =: surname")
+    @Query("select p from User p join fetch p.account c where p.surname = :surname")
     User findUserBySurName(@Param("surname") String surname);
 }
