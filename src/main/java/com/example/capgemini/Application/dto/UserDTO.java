@@ -6,15 +6,15 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * The UserDTO class
+ */
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UserDTO implements Serializable {
 
-    private Integer customerID;
-    private Integer initialCredit;
     private String name;
     private String surname;
     private Integer balance;

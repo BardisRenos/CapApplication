@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * The Service layer of User
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -17,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDTO getUsers(String surName) {
+    public UserDTO getUserBySurName(String surName) {
         User user = userRepository.findUserBySurName(surName);
         UserDTO userDTO = new UserDTO();
 

@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * The entity class of the user database table
+ */
 @Entity
 @Getter
 @Setter

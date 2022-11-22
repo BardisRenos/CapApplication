@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * The entity class of the Transaction database table
+ */
 @Getter
 @Setter
 @Builder
