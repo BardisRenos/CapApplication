@@ -22,9 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserBySurName(String surName) throws UserNotFoundException{
-        User user = null;
+        User user;
         try {
-            userRepository.findUserBySurName(surName);
+            user = userRepository.findUserBySurName(surName);
             UserDTO userDTO = new UserDTO();
 
             userDTO.setName(user.getName());
