@@ -124,6 +124,8 @@ http://localhost:8081/api/v1/getUserBySurName?surname=Bardis
 
 ### Jenkins
 
+This application has a local CI/CD pipeline from Jenkins. The file which creates the stages.
+
 ```
 pipeline {
     agent any
@@ -142,6 +144,8 @@ pipeline {
     }
 }
 ```
+
+As the below image can shows. The stages of the application.
 
 <p align="center"> 
 <img src="https://github.com/BardisRenos/CapApplication/blob/adding/docker_images/Images/jenkins.png" width="861" height="286" style=centerme>
