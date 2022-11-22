@@ -12,10 +12,5 @@ pipeline {
                 sh './mvnw test'
             }
         }
-        stage('Build docker image'){
-            steps {
-                sh 'docker build -t spring-boot-application-docker.jar .'
-            }
-        }
     }
 }
