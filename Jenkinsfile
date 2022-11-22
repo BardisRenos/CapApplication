@@ -2,14 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('Build'){
+        stage('Compile Stage'){
             steps {
-                sh './mvnw clean install -DskipTests'
+                withMaven(maven : 'maven_3_8_6'){
+                    sh 'mvn clean compile'
+                }
             }
         }
-        stage('Tests'){
+        stage('Testing Stage'){
             steps {
-                sh './mvnw test'
+                withMaven(maven : 'maven_3_8_6'){
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Deployment Stage'){
+            steps {
+                withMaven(maven : 'maven_3_8_6'){
+                    sh 'mvn deploy'
+                }
             }
         }
     }
