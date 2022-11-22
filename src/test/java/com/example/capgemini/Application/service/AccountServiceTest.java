@@ -2,10 +2,13 @@ package com.example.capgemini.Application.service;
 
 
 import com.example.capgemini.Application.dao.AccountRepository;
+import com.example.capgemini.Application.dao.UserRepository;
 import com.example.capgemini.Application.dto.AccountDTO;
 import com.example.capgemini.Application.dto.UserDetailsDTO;
 import com.example.capgemini.Application.entity.Account;
 import com.example.capgemini.Application.entity.Transaction;
+import com.example.capgemini.Application.exception.UserNotFoundException;
+import com.example.capgemini.Application.service.validation.CustomerValidation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,17 +32,23 @@ class AccountServiceTest {
     @MockBean
     private AccountRepository accountRepository;
 
+    @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
+    private CustomerValidation customerValidation;
+
     @Autowired
     private AccountServiceImpl accountServiceImpl;
 
     @BeforeEach
     void setup() {
         this.accountRepository = mock(AccountRepository.class);
-        this.accountServiceImpl = new AccountServiceImpl(this.accountRepository);
+        this.accountServiceImpl = new AccountServiceImpl(this.accountRepository, this.userRepository, this.customerValidation);
     }
 
     @Test
-    void createAccount_shouldCreateAccount_thenValidReturn() {
+    void createAccount_shouldCreateAccount_thenValidReturn() throws UserNotFoundException {
         Account account = Account.builder().accountID(1234).initialCredit(0).transactions(Arrays.asList(
                 new Transaction(5321, 1234, 100,  LocalDateTime.now()),
                 new Transaction(1235, 1234, 10, LocalDateTime.now().plusDays(1)))).build();
@@ -54,7 +63,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void createAccount_shouldCreateAccount_thenNotValidReturn() {
+    void createAccount_shouldCreateAccount_thenNotValidReturn() throws UserNotFoundException {
         Account account = Account.builder().accountID(1234).initialCredit(0).transactions(Arrays.asList(
                 new Transaction(5321, 1234, 100,  LocalDateTime.now()),
                 new Transaction(1235, 1234, 10, LocalDateTime.now().plusDays(1)))).build();

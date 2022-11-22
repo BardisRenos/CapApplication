@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
             userDTO.setTransactions(user.getAccount().getTransactions());
             return userDTO;
         } catch (Exception e) {
-            throw new UserNotFoundException("User not found by the surname :" + surName);
+            throw new UserNotFoundException(String.format("User not found by the surname : %s ", surName));
         }
 
     }

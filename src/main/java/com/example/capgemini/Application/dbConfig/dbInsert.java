@@ -25,16 +25,18 @@ public class dbInsert {
         return args -> {
 
             List<Transaction> transactions = new ArrayList<>(Arrays.asList(
-                    new Transaction(7896, 123636, 0, LocalDateTime.now()),
-                    new Transaction(7894, 126369, 0, LocalDateTime.now())
-            ));
+                    new Transaction(7896, 1234, 10, LocalDateTime.now()),
+                    new Transaction(7894, 1234, 20, LocalDateTime.now().plusDays(1)),
+                    new Transaction(9876, 2345, 50, LocalDateTime.now().plusDays(5))));
 
             List<Account> accounts = new ArrayList<>(Arrays.asList(
-                    new Account(15151, 0, transactions)
+                    new Account(1234, 0, transactions.subList(0, 2)),
+                    new Account(2345, 0, transactions.subList(2, 3))
             ));
 
             List<User> users = new ArrayList<>(Arrays.asList(
-                    new User(12345, 0, "Renos", "Bardis", 100, new Account(15151, 0, transactions))));
+                    new User(1234, 0, "Renos", "Bardis", 100, new Account(1234, 0, transactions.subList(0,2))),
+                    new User(2345, 0, "John", "Doe", 50, new Account(2345, 0, transactions.subList(2, 3)))));
 
             userRepository.saveAll(users);
             transactionRepository.saveAll(transactions);

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * The Repository layer of User
  */
@@ -14,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select p from User p join fetch p.account c where p.surname = :surname")
     User findUserBySurName(@Param("surname") String surname);
+
+    @Query("select p from User p where p.customerID = :customerID")
+    Optional<User> findUserByCustomerId(@Param("customerID") Integer customerID);
 }

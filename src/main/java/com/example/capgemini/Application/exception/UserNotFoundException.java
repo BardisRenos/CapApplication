@@ -3,6 +3,9 @@ package com.example.capgemini.Application.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Exception handler when user can not be found.
+ */
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class UserNotFoundException extends Exception {
 

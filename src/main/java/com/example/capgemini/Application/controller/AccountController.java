@@ -2,6 +2,7 @@ package com.example.capgemini.Application.controller;
 
 import com.example.capgemini.Application.dto.AccountDTO;
 import com.example.capgemini.Application.dto.UserDetailsDTO;
+import com.example.capgemini.Application.exception.UserNotFoundException;
 import com.example.capgemini.Application.service.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class AccountController {
 
     @PostMapping("createAccount")
     @ResponseStatus(HttpStatus.CREATED)
-    public AccountDTO createCurrentAccount(@RequestBody UserDetailsDTO userDTO) {
+    public AccountDTO createCurrentAccount(@RequestBody UserDetailsDTO userDTO) throws UserNotFoundException {
         return accountService.createAccount(userDTO);
     }
 }
