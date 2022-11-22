@@ -1,10 +1,12 @@
 package com.example.capgemini.Application.controller;
 
 import com.example.capgemini.Application.dto.AccountDTO;
-import com.example.capgemini.Application.dto.UserDTO;
+import com.example.capgemini.Application.dto.TransactionDTO;
 import com.example.capgemini.Application.dto.UserDetailsDTO;
+import com.example.capgemini.Application.entity.Account;
+import com.example.capgemini.Application.entity.Transaction;
+import com.example.capgemini.Application.entity.User;
 import com.example.capgemini.Application.service.AccountServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,28 +61,58 @@ class AccountControllerTest {
     }
 
     @Test
-    void createCurrentAccount_whenCorrectData_thenReturnAccount() throws Exception {
+    void createCurrentAccount_whenInitialCredit_is_0_thenReturnAccount() throws Exception {
         AccountDTO accountDTO = AccountDTO.builder().accountID(12340).initialCredit(0).build();
-        UserDetailsDTO userDetailsDTO = UserDetailsDTO.builder().customerID(12340).initialCredit(0).build();
 
         when(accountService.createAccount(any(UserDetailsDTO.class))).thenReturn(accountDTO);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/createAccount")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/createAccount")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(userDetailsDTO)))
+                .content(om.writeValueAsString(accountDTO)))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.customerId", is(userDetailsDTO.getCustomerID())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.initialCredit", is(userDetailsDTO.getInitialCredit())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountID", is(accountDTO.getAccountID())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.initialCredit", is(accountDTO.getInitialCredit())))
                 .andReturn();
 
-//        String jsonResponse = mvcResult.getResponse().getContentAsString();
-//        AccountDTO myObjectsRes = new ObjectMapper().readValue(jsonResponse, UserDetailsDTO.class);
-//
-//        assertNotNull(myObjectsRes);
-//        assertEquals("John", myObjectsRes.getName());
-//        assertEquals("Doe", myObjectsRes.getSurname());
-//        assertEquals(2, myObjectsRes.getTransactions().size());
+        String jsonResponse = mvcResult.getResponse().getContentAsString();
+        AccountDTO myObjectsRes = new ObjectMapper().readValue(jsonResponse, AccountDTO.class);
 
+        assertNotNull(myObjectsRes);
+        assertEquals(12340, myObjectsRes.getAccountID());
+        assertEquals(0, myObjectsRes.getInitialCredit());
     }
+
+    @Test
+    void createCurrentAccount_whenInitialCredit_is_1_thenReturnAccount() throws Exception {
+        AccountDTO accountDTO = AccountDTO.builder().accountID(1234).initialCredit(1).build();
+
+        TransactionDTO transactionDTO = TransactionDTO.builder().transactionID(98760).customerID(1234)
+                .amount(1).time(LocalDateTime.now()).build();
+
+        Account account = Account.builder().accountID(1234).initialCredit(1).transactions(Arrays.asList(
+                new Transaction(4321, 1234, 100,  LocalDateTime.now()),
+                new Transaction(4322, 1234, 10, LocalDateTime.now().plusDays(1)))).build();
+
+        User user = new User(1234, 1, "John", "Doe", 100, account);
+
+        when(accountService.createAccount(any(UserDetailsDTO.class))).thenReturn(accountDTO);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/createAccount")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(om.writeValueAsString(accountDTO)))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountID", is(accountDTO.getAccountID())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.initialCredit", is(accountDTO.getInitialCredit())))
+                .andReturn();
+
+        String jsonResponse = mvcResult.getResponse().getContentAsString();
+        AccountDTO myObjectsRes = new ObjectMapper().readValue(jsonResponse, AccountDTO.class);
+
+        assertNotNull(myObjectsRes);
+        assertEquals(1234, myObjectsRes.getAccountID());
+        assertEquals(1, myObjectsRes.getInitialCredit());
+    }
+
 }
