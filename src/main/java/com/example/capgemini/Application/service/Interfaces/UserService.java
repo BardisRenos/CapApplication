@@ -2,9 +2,10 @@ package com.example.capgemini.Application.service.Interfaces;
 
 import com.example.capgemini.Application.dto.UserDTO;
 
-import java.util.List;
-
+/**
+ * The User Service Interface. All methods that User Service has.
+ */
 public interface UserService {
 
-    UserDTO getUsers(String surName);
+    UserDTO getUserBySurName(String surName);
 }

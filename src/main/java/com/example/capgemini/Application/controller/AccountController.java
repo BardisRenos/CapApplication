@@ -1,12 +1,15 @@
 package com.example.capgemini.Application.controller;
 
 import com.example.capgemini.Application.dto.AccountDTO;
-import com.example.capgemini.Application.dto.UserDTO;
+import com.example.capgemini.Application.dto.UserDetailsDTO;
 import com.example.capgemini.Application.service.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * The Controller layer of Account
+ */
 @RestController
 @RequestMapping("/api/v1/")
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class AccountController {
 
     @PostMapping("createAccount")
     @ResponseStatus(HttpStatus.CREATED)
-    public AccountDTO createCurrentAccount(@RequestBody UserDTO userDTO) {
+    public AccountDTO createCurrentAccount(@RequestBody UserDetailsDTO userDTO) {
         return accountService.createAccount(userDTO);
     }
 }

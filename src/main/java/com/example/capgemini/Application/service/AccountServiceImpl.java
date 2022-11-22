@@ -4,7 +4,7 @@ import com.example.capgemini.Application.Mapper.AccountMapper;
 import com.example.capgemini.Application.Mapper.UserMapper;
 import com.example.capgemini.Application.dao.AccountRepository;
 import com.example.capgemini.Application.dto.AccountDTO;
-import com.example.capgemini.Application.dto.UserDTO;
+import com.example.capgemini.Application.dto.UserDetailsDTO;
 import com.example.capgemini.Application.entity.Account;
 import com.example.capgemini.Application.entity.Transaction;
 import com.example.capgemini.Application.entity.User;
@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
+
+/**
+ * The Service layer of Account
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -28,9 +30,9 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public AccountDTO createAccount(UserDTO userDTO) {
+    public AccountDTO createAccount(UserDetailsDTO userDTO) {
         Account account = new Account();
-        User user = UserMapper.toUserEntity(userDTO);
+        User user = UserMapper.toUserDetailsEntity(userDTO);
 
         if (user.getInitialCredit() != 0) {
             Integer randomNumber = new Random().nextInt(9000) + 1000;

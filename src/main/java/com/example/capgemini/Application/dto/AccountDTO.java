@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.io.Serializable;
 
+/**
+ * The AccountDTO class
+ */
 @Getter
 @Setter
 @Builder

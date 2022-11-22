@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * The Controller layer of User
+ */
 @RestController
 @RequestMapping("/api/v1/")
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class UserController {
 
     @GetMapping("getUserBySurName")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getAllUsers(@RequestParam(value = "surname") String surname) {
-        return userService.getUsers(surname);
+    public UserDTO getUser(@RequestParam(value = "surname") String surname) {
+        return userService.getUserBySurName(surname);
     }
 }

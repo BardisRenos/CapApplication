@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * The entity class of the Account database table
+ */
 @Getter
 @Setter
 @NoArgsConstructor
