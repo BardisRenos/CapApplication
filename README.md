@@ -54,14 +54,65 @@ Changing the server port from 8080 (Default) to 8081. It is needed to change the
 server.port=8081
 ```
 
+Setting the memory database H2 (In our case)
+
+```
+# Memory Database for development Environment
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.datasource.url=jdbc:h2:mem:applicationdb;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.driverClassName=org.h2.Driver
+spring.jpa.show-sql=true
+spring.datasource.username=sa
+spring.datasource.password=
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.hibernate.dialect=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=create
+```
+
 ### Docker
 
 It is possible to deploy and run the application via docker container.
 
-```Docker
+```
 FROM openjdk:11.0.15-slim
 EXPOSE 8081
 ADD target/spring-boot-application-docker.jar spring-boot-application-docker.jar
 ENTRYPOINT ["java", "-jar", "/spring-boot-application-docker.jar"]
+```
+
+In order to build the docker image. This command is needed. 
+
+```
+docker build -t spring-boot-application-docker.jar .
+
+```
+
+Moreover, to run the container into a specific port this command is needed.
+
+```
+docker run -p 9090:8081 spring-boot-application-docker.jar
+
+```
+
+### Jenkins
+
+```
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build'){
+            steps {
+                sh './mvnw clean install -DskipTests'
+            }
+        }
+        stage('Tests'){
+            steps {
+                sh './mvnw test'
+            }
+        }
+    }
+}
 ```
 
