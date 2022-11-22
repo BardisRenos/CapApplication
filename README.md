@@ -70,6 +70,16 @@ spring.jpa.hibernate.hibernate.dialect=org.hibernate.dialect.H2Dialect
 spring.jpa.hibernate.ddl-auto=create
 ```
 
+### Layers of the Application
+
+The application is constructed as :
+
+Controller Layer --> Service Layer --> DTO/Mapper Layer --> Repository Layer
+
+<p align="center"> 
+<img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/layers.png" width="350" height="450" style=centerme>
+</p>
+
 ### Docker
 
 It is possible to deploy and run the application via docker container.
