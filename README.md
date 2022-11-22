@@ -87,6 +87,11 @@ In order to build the docker image. This command is needed.
 docker build -t spring-boot-application-docker.jar .
 
 ```
+This image shows the image which has been created after the command.
+
+<p align="center"> 
+<img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/dockerImage.png" width="793" height="52" style=centerme>
+</p>
 
 Moreover, to run the container into a specific port this command is needed.
 
@@ -94,6 +99,28 @@ Moreover, to run the container into a specific port this command is needed.
 docker run -p 9090:8081 spring-boot-application-docker.jar
 
 ```
+
+<p align="center"> 
+<img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/dockerContainer.png" width="793" height="52" style=centerme>
+</p>
+
+
+
+### Endpoints
+
+In case docker is used in order to retrieve the data from the (memory) database. It is needed the below path.
+After the http it is needed the ip address of the docker container.
+
+```
+http://172.17.0.2:8081/api/v1/getUserBySurName?surname=Bardis
+```
+
+On the other hand if the applcation run on the local machine, then: 
+
+```
+http://localhost:8081/api/v1/getUserBySurName?surname=Bardis
+```
+
 
 ### Jenkins
 
@@ -115,4 +142,9 @@ pipeline {
     }
 }
 ```
+
+<p align="center"> 
+<img src="https://github.com/BardisRenos/CapApplication/blob/adding/docker_images/Images/jenkins.png" width="861" height="286" style=centerme>
+</p>
+
 
