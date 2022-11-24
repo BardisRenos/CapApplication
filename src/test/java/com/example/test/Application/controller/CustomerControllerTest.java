@@ -67,7 +67,7 @@ class CustomerControllerTest {
     ObjectMapper om = new ObjectMapper();
 
     @Test
-    void testGetCustomerWithTransactions_whenCustomerIdExists_shouldReturnCustomerDto() throws Exception {
+    void testGetCustomerWithTransactions_whenCustomerSurNameExists_shouldReturnCustomerDto() throws Exception {
         CustomerDTO customerDTO = CustomerDTO.builder().name("Renos").surname("Bardis").balance(100)
                 .transactions(List.of(new Transaction(10, 100, LocalDateTime.now()),
                         new Transaction(11, 200, LocalDateTime.now()))).build();
