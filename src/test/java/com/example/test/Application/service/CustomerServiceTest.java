@@ -33,7 +33,6 @@ class CustomerServiceTest {
     @Autowired
     private CustomerServiceImpl customerServiceImpl;
 
-
     @BeforeEach
     void setup() {
         this.customerRepository = mock(CustomerRepository.class);
@@ -57,11 +56,10 @@ class CustomerServiceTest {
                 ()->assertEquals("Doe", customerDTO.getSurname()),
                 ()->assertEquals(100, customerDTO.getBalance()),
                 ()->assertEquals(1, customerDTO.getTransactions().size()));
-
     }
 
     @Test
-    void getCustomerBySurName_shouldNotReturnCustomer_thenNotValidReturn() {
+    void getCustomerBySurName_shouldNotReturnCustomer_thenCustomerNotFoundException() {
         Customer customer = Customer.builder().customerID(1234).name("John").surname("Doe").balance(100).build();
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
         Transaction transaction = Transaction.builder().transactionID(1).amount(10).time(LocalDateTime.now()).build();
@@ -72,7 +70,6 @@ class CustomerServiceTest {
         when(customerRepository.findCustomerWithTransaction(customer.getSurname())).thenReturn(Optional.of(customer));
 
         assertThrows(CustomerNotFoundException.class, ()->customerServiceImpl.getCustomerWithTransactions("Doew"));
-
     }
 
 }
