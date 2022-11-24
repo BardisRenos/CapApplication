@@ -136,6 +136,13 @@ docker run -p 9090:8081 spring-boot-application-docker.jar
 <img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/dockerContainer.png" width="793" height="52" style=centerme>
 </p>
 
+### Unit Test
+
+
+<p align="center"> 
+<img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/dockerContainer.png" width="793" height="52" style=centerme>
+</p>
+
 ### Jenkins
 
 This application has a local CI/CD pipeline from Jenkins. The file which creates the stages.
