@@ -56,7 +56,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void testCreateAccount() throws Exception {
+    void testCreateCurrentAccount_whenInitialCreditIsZero_shouldReturnAccountDto() throws Exception {
 
         CreateAccountRequest request = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
         AccountDTO accountDTO = AccountDTO.builder().accountID(1).initialCredit(0).dateCreation(LocalDateTime.now()).build();
@@ -72,7 +72,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void testCreateAccount_non_0_initial_value() throws Exception {
+    void testCreateCurrentAccount_whenInitialCreditIsTen_shouldReturnAccountTransactionDto() throws Exception {
 
         CreateAccountRequest request = CreateAccountRequest.builder().customerID(1).initialCredit(10).build();
         AccountTransactionDTO accountTransactionDTO = new AccountTransactionDTO(10, 10, LocalDateTime.now(), List.of(new Transaction(1, 10, LocalDateTime.now())));

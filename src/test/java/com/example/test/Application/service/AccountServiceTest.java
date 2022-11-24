@@ -47,7 +47,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void createAccount_shouldCreateAccount_with_0_initial_value_thenValidReturn() throws CustomerNotFoundException {
+    void testCreateAccount_whenInitialCreditIsZero_shouldReturnAccountDto() throws CustomerNotFoundException {
         CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
 
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
@@ -63,7 +63,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void createAccount_shouldCreateAccount_with_10_initial_value_thenValidReturn() throws CustomerNotFoundException {
+    void testCreateAccount_whenInitialCreditIsTen_thenReturnAccountTransactionDTO() throws CustomerNotFoundException {
         CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(10).build();
 
         Account account = new Account(1, 10, LocalDateTime.now());
@@ -89,7 +89,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void createAccount_shouldCreateAccount_thenNotValidReturn() {
+    void createAccount_whenTheCustomerDoesNotExists_thenReturnCustomerNotFoundException() {
         CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
 
         when(customerRepository.findById(11)).thenReturn(null);

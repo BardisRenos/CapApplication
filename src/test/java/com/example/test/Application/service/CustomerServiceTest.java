@@ -40,7 +40,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getCustomerBySurName_shouldReturnCustomer_thenValidReturn() throws CustomerNotFoundException {
+    void getCustomerBySurName_shouldReturnCustomer_thenReturnCustomerDto() throws CustomerNotFoundException {
         Customer customer = Customer.builder().customerID(1234).name("John").surname("Doe").balance(100).build();
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
         Transaction transaction = Transaction.builder().transactionID(1).amount(10).time(LocalDateTime.now()).build();
