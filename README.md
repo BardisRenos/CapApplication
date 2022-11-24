@@ -1,6 +1,6 @@
 # CapApplication
 
-### Info
+### Summary
 
 The assessment consists of an API to be used for opening a new “current account” of already existing
 customers.
@@ -18,13 +18,29 @@ Bonuses:
 - Frontend (simple one is OK).
 - Attention to CI/CD
 
-### Prerequisites 
+### The Tech Stack 
 
 - Java v11
 - Spring Boot v2.7.5
+- Spring Data JPA
+- H2 in memory database
+- Docker
+- Junit
+- Restfull Api
 - Maven Project 
 - Maven Build Tool
 - Lombok (Additional Library)
+
+### The application Apis
+
+The application has 2 apis
+- AccountAPI
+- CustomerAPI
+
+```
+POST api/v1/createAccount - create a new account for an existing customer
+GET  api/v1/customer?surname= "LastName" - retireves an existing customer
+```
 
 ### Installation
 
@@ -44,6 +60,12 @@ In order to run all test cases of this application.
 
 ```
 mvn test
+```
+
+To execute the project via command line and execute the command
+
+```
+mvn spring-boot:run
 ```
 
 ### Application Properties
@@ -113,24 +135,6 @@ docker run -p 9090:8081 spring-boot-application-docker.jar
 <p align="center"> 
 <img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/dockerContainer.png" width="793" height="52" style=centerme>
 </p>
-
-
-
-### Endpoints
-
-In case docker is used in order to retrieve the data from the (memory) database. It is needed the below path.
-After the http it is needed the ip address of the docker container.
-
-```
-http://172.17.0.2:8081/api/v1/getUserBySurName?surname=Bardis
-```
-
-On the other hand if the applcation run on the local machine, then: 
-
-```
-http://localhost:8081/api/v1/getUserBySurName?surname=Bardis
-```
-
 
 ### Jenkins
 
