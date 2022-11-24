@@ -28,7 +28,7 @@ Bonuses:
 - Junit
 - Restfull Api
 - Maven Project 
-- Maven Build Tool
+- Jenknins CI/CD
 - Lombok (Additional Library)
 
 ### The application Apis
@@ -138,9 +138,10 @@ docker run -p 9090:8081 spring-boot-application-docker.jar
 
 ### Unit Test
 
+The coverage's percentage of the unit tests is 92%.
 
 <p align="center"> 
-<img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/dockerContainer.png" width="793" height="52" style=centerme>
+<img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/coverageTest.png" width="495" height="260" style=centerme>
 </p>
 
 ### Jenkins
