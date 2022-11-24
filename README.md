@@ -38,8 +38,8 @@ The application has 2 apis
 - CustomerAPI
 
 ```
-POST api/v1/createAccount - create a new account for an existing customer
-GET  api/v1/customer?surname= "LastName" - retireves an existing customer
+POST api/v1/createAccount - create a new account for an existing customer.
+GET  api/v1/customer?surname - retireves an existing customer with all transactions.
 ```
 
 ### Installation
