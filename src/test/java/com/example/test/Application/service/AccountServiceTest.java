@@ -55,11 +55,11 @@ class AccountServiceTest {
 
         when(customerRepository.findById(createAccountRequest.getCustomerID())).thenReturn(Optional.ofNullable(customer));
         when(accountRepository.save(any(Account.class))).thenReturn(account);
-        AccountDTO accountDTORes = accountServiceImpl.createAccount(createAccountRequest);
+        AccountDTO accountDtoRes = accountServiceImpl.createAccount(createAccountRequest);
 
         assertAll("Check the return entities",
-                ()->assertEquals(1, accountDTORes.getAccountID()),
-                ()->assertEquals(100, accountDTORes.getInitialCredit()));
+                ()->assertEquals(1, accountDtoRes.getAccountID()),
+                ()->assertEquals(100, accountDtoRes.getInitialCredit()));
     }
 
     @Test
