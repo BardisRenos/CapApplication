@@ -1,6 +1,6 @@
 package com.example.test.Application.service;
 
-import com.example.test.Application.Mapper.AccountMapper;
+import com.example.test.Application.mapper.AccountMapper;
 import com.example.test.Application.dao.AccountRepository;
 import com.example.test.Application.dao.CustomerRepository;
 import com.example.test.Application.dto.AccountDTO;

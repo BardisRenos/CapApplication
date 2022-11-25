@@ -52,6 +52,7 @@ class CustomerServiceTest {
         CustomerDTO customerDTO = customerServiceImpl.getCustomerWithTransactions("Doe");
 
         assertAll("Check the return class",
+                ()->assertEquals(1234, customerDTO.getCustomerId()),
                 ()->assertEquals("John", customerDTO.getName()),
                 ()->assertEquals("Doe", customerDTO.getSurname()),
                 ()->assertEquals(100, customerDTO.getBalance()),
@@ -69,7 +70,7 @@ class CustomerServiceTest {
 
         when(customerRepository.findCustomerWithTransaction(customer.getSurname())).thenReturn(Optional.of(customer));
 
-        assertThrows(CustomerNotFoundException.class, ()->customerServiceImpl.getCustomerWithTransactions("Doew"));
+        assertThrows(CustomerNotFoundException.class, ()-> customerServiceImpl.getCustomerWithTransactions("Doew"));
     }
 
 }

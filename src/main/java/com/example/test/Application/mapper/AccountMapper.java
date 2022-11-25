@@ -1,4 +1,4 @@
-package com.example.test.Application.Mapper;
+package com.example.test.Application.mapper;
 
 import com.example.test.Application.dto.AccountDTO;
 import com.example.test.Application.dto.AccountTransactionDTO;
@@ -29,5 +29,4 @@ public class AccountMapper {
     public static AccountTransactionDTO toAccountTransactionDTO(Account account) {
         return new ModelMapper().map(account, AccountTransactionDTO.class);
     }
-
 }
