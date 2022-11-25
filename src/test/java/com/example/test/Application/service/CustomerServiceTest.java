@@ -3,10 +3,12 @@ package com.example.test.Application.service;
 
 import com.example.test.Application.dao.CustomerRepository;
 import com.example.test.Application.dto.CustomerTransactionDTO;
+import com.example.test.Application.dto.TransactionDTO;
 import com.example.test.Application.entity.Account;
 import com.example.test.Application.entity.Customer;
 import com.example.test.Application.entity.Transaction;
 import com.example.test.Application.exception.CustomerNotFoundException;
+import com.example.test.Application.mapper.TransactionMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,6 +46,8 @@ class CustomerServiceTest {
         Customer customer = Customer.builder().customerID(1234).name("John").surname("Doe").balance(100).build();
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
         Transaction transaction = Transaction.builder().transactionID(1).amount(10).time(LocalDateTime.now()).build();
+        TransactionDTO transactionDTO = TransactionMapper.toTransactionDTO(transaction);
+        transactionDTO.setCustomerID(customer.getCustomerID());
 
         account.setTransactions(List.of(transaction));
         customer.setAccount(List.of(account));
@@ -56,7 +60,9 @@ class CustomerServiceTest {
                 ()->assertEquals("John", customerTransactionDTO.getName()),
                 ()->assertEquals("Doe", customerTransactionDTO.getSurname()),
                 ()->assertEquals(100, customerTransactionDTO.getBalance()),
-                ()->assertEquals(1, customerTransactionDTO.getTransactions().size()));
+                ()->assertEquals(1, customerTransactionDTO.getTransactions().size()),
+                ()->assertEquals(1234, transactionDTO.getCustomerID()),
+                ()->assertEquals(10, transactionDTO.getAmount()));
     }
 
     @Test
