@@ -89,7 +89,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void createAccount_whenTheCustomerDoesNotExists_thenReturnCustomerNotFoundException() {
+    void testCreateAccount_whenTheCustomerDoesNotExists_thenReturnCustomerNotFoundException() {
         CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
 
         when(customerRepository.findById(11)).thenReturn(null);
