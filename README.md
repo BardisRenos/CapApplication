@@ -139,7 +139,7 @@ docker run -p 9090:8081 spring-boot-application-docker.jar
 
 ### Unit Test
 
-The coverage's percentage of the unit tests is 92%.
+The coverage's percentage of the unit tests is 96%.
 
 <p align="center"> 
 <img src="https://github.com/BardisRenos/CapApplication/blob/main/Images/coverageTest.png" width="495" height="260" style=centerme>
