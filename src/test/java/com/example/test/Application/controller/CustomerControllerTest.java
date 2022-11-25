@@ -2,7 +2,7 @@ package com.example.test.Application.controller;
 
 import com.example.test.Application.dao.AccountRepository;
 import com.example.test.Application.dao.CustomerRepository;
-import com.example.test.Application.dto.CustomerDTO;
+import com.example.test.Application.dto.CustomerTransactionDTO;
 import com.example.test.Application.entity.Transaction;
 import com.example.test.Application.service.AccountServiceImpl;
 import com.example.test.Application.service.CustomerServiceImpl;
@@ -68,29 +68,28 @@ class CustomerControllerTest {
 
     @Test
     void testGetCustomerWithTransactions_whenCustomerSurNameExists_shouldReturnCustomerDto() throws Exception {
-        CustomerDTO customerDTO = CustomerDTO.builder().name("Renos").surname("Bardis").balance(100)
-                .transactions(List.of(new Transaction(10, 100, LocalDateTime.now()),
-                        new Transaction(11, 200, LocalDateTime.now()))).build();
+        CustomerTransactionDTO customerTransactionDTO = new CustomerTransactionDTO(1, "Renos", "Bardis", 100,
+                List.of(new Transaction(10, 100, LocalDateTime.now()), new Transaction(11, 200, LocalDateTime.now())));
 
-        when(customerService.getCustomerWithTransactions("Bardis")).thenReturn(customerDTO);
+        when(customerService.getCustomerWithTransactions("Bardis")).thenReturn(customerTransactionDTO);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(CUSTOMER_API_ENDPOINT+"Bardis")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(customerDTO)))
+                .content(om.writeValueAsString(customerTransactionDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.name", is(customerDTO.getName())))
-                .andExpect(jsonPath("$.balance", is(customerDTO.getBalance())))
+                .andExpect(jsonPath("$.name", is(customerTransactionDTO.getName())))
+                .andExpect(jsonPath("$.balance", is(customerTransactionDTO.getBalance())))
                 .andReturn();
 
         String jsonResponse = mvcResult.getResponse().getContentAsString();
-        CustomerDTO customerDtoRes = new ObjectMapper().readValue(jsonResponse, CustomerDTO.class);
+        CustomerTransactionDTO customerTransactionDtoRes = new ObjectMapper().readValue(jsonResponse, CustomerTransactionDTO.class);
 
-        assertNotNull(customerDtoRes);
-        assertEquals("Renos", customerDtoRes.getName());
-        assertEquals("Bardis", customerDtoRes.getSurname());
-        assertEquals(2, customerDtoRes.getTransactions().size());
-        assertEquals(100, customerDtoRes.getTransactions().get(0).getAmount());
+        assertNotNull(customerTransactionDtoRes);
+        assertEquals("Renos", customerTransactionDtoRes.getName());
+        assertEquals("Bardis", customerTransactionDtoRes.getSurname());
+        assertEquals(2, customerTransactionDtoRes.getTransactions().size());
+        assertEquals(100, customerTransactionDtoRes.getTransactions().get(0).getAmount());
     }
 
 

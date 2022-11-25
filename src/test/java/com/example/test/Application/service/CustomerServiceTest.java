@@ -2,7 +2,7 @@ package com.example.test.Application.service;
 
 
 import com.example.test.Application.dao.CustomerRepository;
-import com.example.test.Application.dto.CustomerDTO;
+import com.example.test.Application.dto.CustomerTransactionDTO;
 import com.example.test.Application.entity.Account;
 import com.example.test.Application.entity.Customer;
 import com.example.test.Application.entity.Transaction;
@@ -40,7 +40,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getCustomerBySurName_shouldReturnCustomer_thenReturnCustomerDto() throws CustomerNotFoundException {
+    void testGetCustomerBySurName_shouldReturnCustomer_thenReturnCustomerDto() throws CustomerNotFoundException {
         Customer customer = Customer.builder().customerID(1234).name("John").surname("Doe").balance(100).build();
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
         Transaction transaction = Transaction.builder().transactionID(1).amount(10).time(LocalDateTime.now()).build();
@@ -49,18 +49,18 @@ class CustomerServiceTest {
         customer.setAccount(List.of(account));
 
         when(customerRepository.findCustomerWithTransaction(customer.getSurname())).thenReturn(Optional.of(customer));
-        CustomerDTO customerDTO = customerServiceImpl.getCustomerWithTransactions("Doe");
+        CustomerTransactionDTO customerTransactionDTO = customerServiceImpl.getCustomerWithTransactions("Doe");
 
         assertAll("Check the return class",
-                ()->assertEquals(1234, customerDTO.getCustomerId()),
-                ()->assertEquals("John", customerDTO.getName()),
-                ()->assertEquals("Doe", customerDTO.getSurname()),
-                ()->assertEquals(100, customerDTO.getBalance()),
-                ()->assertEquals(1, customerDTO.getTransactions().size()));
+                ()->assertEquals(1234, customerTransactionDTO.getCustomerId()),
+                ()->assertEquals("John", customerTransactionDTO.getName()),
+                ()->assertEquals("Doe", customerTransactionDTO.getSurname()),
+                ()->assertEquals(100, customerTransactionDTO.getBalance()),
+                ()->assertEquals(1, customerTransactionDTO.getTransactions().size()));
     }
 
     @Test
-    void getCustomerBySurName_shouldNotReturnCustomer_thenCustomerNotFoundException() {
+    void testGetCustomerBySurName_shouldNotReturnCustomer_thenCustomerNotFoundException() {
         Customer customer = Customer.builder().customerID(1234).name("John").surname("Doe").balance(100).build();
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
         Transaction transaction = Transaction.builder().transactionID(1).amount(10).time(LocalDateTime.now()).build();
