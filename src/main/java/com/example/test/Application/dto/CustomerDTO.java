@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerDTO implements Serializable {
 
+    private Integer customerId;
     private String name;
     private String surname;
     private Integer balance;

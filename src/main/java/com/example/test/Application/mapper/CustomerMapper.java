@@ -1,4 +1,4 @@
-package com.example.test.Application.Mapper;
+package com.example.test.Application.mapper;
 
 import com.example.test.Application.dto.CustomerDTO;
 import com.example.test.Application.entity.Customer;

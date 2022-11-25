@@ -75,7 +75,9 @@ class AccountControllerTest {
     void testCreateCurrentAccount_whenInitialCreditIsTen_shouldReturnAccountTransactionDto() throws Exception {
 
         CreateAccountRequest request = CreateAccountRequest.builder().customerID(1).initialCredit(10).build();
-        AccountTransactionDTO accountTransactionDTO = new AccountTransactionDTO(10, 10, LocalDateTime.now(), List.of(new Transaction(1, 10, LocalDateTime.now())));
+        AccountTransactionDTO accountTransactionDTO =
+                new AccountTransactionDTO(10, 10, LocalDateTime.now(),
+                        List.of(new Transaction(1, 10, LocalDateTime.now())));
 
         when(accountService.createAccount(any(CreateAccountRequest.class))).thenReturn(accountTransactionDTO);
 

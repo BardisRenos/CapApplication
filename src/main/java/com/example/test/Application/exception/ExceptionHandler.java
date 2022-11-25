@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * The global exceptions' handler. This class handles all the exceptions for each controller.
+ */
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
