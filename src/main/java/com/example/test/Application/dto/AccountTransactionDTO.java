@@ -6,6 +6,9 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * The AccountTransactionDTO class
+ */
 @Getter
 @Setter
 @AllArgsConstructor

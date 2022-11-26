@@ -5,6 +5,9 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * The TransactionDTO class
+ */
 @Getter
 @Setter
 @Builder

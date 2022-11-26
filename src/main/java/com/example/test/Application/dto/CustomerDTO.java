@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.io.Serializable;
 
+/**
+ * The CustomerDTO class
+ */
 @Getter
 @Setter
 @AllArgsConstructor

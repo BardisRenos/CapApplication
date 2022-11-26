@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * The customerDTO class
+ * The CustomerTransactionDTO class
  */
 @Getter
 @Setter
