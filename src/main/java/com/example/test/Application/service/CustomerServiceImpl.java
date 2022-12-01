@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerTransactionDTO getCustomerWithTransactions(String surName) throws CustomerNotFoundException {
 
         Customer customer = customerRepository.findCustomerWithTransaction(surName)
-                .orElseThrow(() -> new CustomerNotFoundException(String.format("There is no customer with the surname : %s", surName)));
+                .orElseThrow(() -> new CustomerNotFoundException(String.format("There is no transactions with the surname : %s", surName)));
 
         CustomerTransactionDTO customerTransactionDTO = CustomerMapper.toCustomerTransactionDTO(customer);
 
