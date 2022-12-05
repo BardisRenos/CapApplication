@@ -1,13 +1,12 @@
 package com.example.test.Application.service;
 
-import com.example.test.Application.mapper.AccountMapper;
 import com.example.test.Application.dao.AccountRepository;
-import com.example.test.Application.dao.CustomerRepository;
 import com.example.test.Application.dto.AccountDTO;
 import com.example.test.Application.entity.Account;
 import com.example.test.Application.entity.Customer;
 import com.example.test.Application.entity.Transaction;
 import com.example.test.Application.exception.CustomerNotFoundException;
+import com.example.test.Application.mapper.AccountMapper;
 import com.example.test.Application.request.CreateAccountRequest;
 import com.example.test.Application.service.Interfaces.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +26,18 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
-    private final CustomerRepository customerRepository;
+    private final CustomerServiceImpl customerService;
 
+    /**
+     * This method creates a new account (First checks if the )
+     * @param createAccountRequest The given object that contains the Customer ID and the initial value
+     * @return An AccountDTO class
+     * @throws CustomerNotFoundException If there is no customer with a given id then an exception rises
+     */
     @Override
     public AccountDTO createAccount(CreateAccountRequest createAccountRequest) throws CustomerNotFoundException {
 
-        Customer customer = getCustomer(createAccountRequest.getCustomerID());
+        Customer customer = customerService.getCustomerById(createAccountRequest.getCustomerID());
 
         Account account = new Account();
         account.setInitialCredit(createAccountRequest.getInitialCredit());
@@ -50,12 +55,5 @@ public class AccountServiceImpl implements AccountService {
             }
 
         return AccountMapper.toAccountDTO(accountRepository.save(account));
-    }
-
-    private Customer getCustomer(Integer id) throws CustomerNotFoundException {
-
-        return customerRepository.findById(id)
-                .orElseThrow(()-> new CustomerNotFoundException(
-                        String.format("There is no customer with the id : %d", id)));
     }
 }

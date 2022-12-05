@@ -6,7 +6,6 @@ import com.example.test.Application.request.CreateAccountRequest;
 import com.example.test.Application.service.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +20,7 @@ public class AccountController {
 
     private final AccountServiceImpl accountService;
 
-    @PostMapping("createAccount")
+    @PostMapping("account")
     @ResponseStatus(HttpStatus.CREATED)
     public AccountDTO createCurrentAccount(@Valid @RequestBody CreateAccountRequest createAccountRequest) throws CustomerNotFoundException {
         return accountService.createAccount(createAccountRequest);

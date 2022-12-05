@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CustomerTransactionDTO extends CustomerDTO{
+public class CustomerTransactionDTO extends CustomerDTO {
 
     private List<Transaction> transactions;
 

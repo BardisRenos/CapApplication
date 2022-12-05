@@ -2,7 +2,6 @@ package com.example.test.Application.service;
 
 
 import com.example.test.Application.dao.AccountRepository;
-import com.example.test.Application.dao.CustomerRepository;
 import com.example.test.Application.dto.AccountDTO;
 import com.example.test.Application.dto.AccountTransactionDTO;
 import com.example.test.Application.entity.Account;
@@ -19,7 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,7 +32,7 @@ class AccountServiceTest {
     private AccountRepository accountRepository;
 
     @MockBean
-    private CustomerRepository customerRepository;
+    private CustomerServiceImpl customerService;
 
     @Autowired
     private AccountServiceImpl accountServiceImpl;
@@ -43,7 +41,7 @@ class AccountServiceTest {
     @BeforeEach
     void setup() {
         this.accountRepository = mock(AccountRepository.class);
-        this.accountServiceImpl = new AccountServiceImpl(this.accountRepository, this.customerRepository);
+        this.accountServiceImpl = new AccountServiceImpl(this.accountRepository, this.customerService);
     }
 
     @Test
@@ -53,7 +51,7 @@ class AccountServiceTest {
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
         Customer customer = Customer.builder().customerID(1).name("Renos").surname("Bardis").balance(100).build();
 
-        when(customerRepository.findById(createAccountRequest.getCustomerID())).thenReturn(Optional.ofNullable(customer));
+        when(customerService.getCustomerById(createAccountRequest.getCustomerID())).thenReturn(customer);
         when(accountRepository.save(any(Account.class))).thenReturn(account);
         AccountDTO accountDtoRes = accountServiceImpl.createAccount(createAccountRequest);
 
@@ -75,7 +73,7 @@ class AccountServiceTest {
         transaction.setTime(LocalDateTime.now());
         account.getTransactions().add(transaction);
 
-        when(customerRepository.findById(createAccountRequest.getCustomerID())).thenReturn(Optional.ofNullable(customer));
+        when(customerService.getCustomerById(createAccountRequest.getCustomerID())).thenReturn(customer);
         when(accountRepository.save(any(Account.class))).thenReturn(account);
 
         AccountTransactionDTO accountDtoRes = (AccountTransactionDTO) accountServiceImpl.createAccount(createAccountRequest);
@@ -89,10 +87,10 @@ class AccountServiceTest {
     }
 
     @Test
-    void testCreateAccount_whenTheCustomerDoesNotExists_thenReturnCustomerNotFoundException() {
+    void testCreateAccount_whenTheCustomerDoesNotExists_thenReturnCustomerNotFoundException() throws CustomerNotFoundException {
         CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
 
-        when(customerRepository.findById(11)).thenReturn(null);
+        when(customerService.getCustomerById(11)).thenReturn(null);
         when(accountRepository.save(any(Account.class))).thenReturn(null);
 
         assertThrows(CustomerNotFoundException.class, ()-> accountServiceImpl.createAccount(createAccountRequest));
