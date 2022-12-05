@@ -88,9 +88,9 @@ class AccountServiceTest {
 
     @Test
     void testCreateAccount_whenTheCustomerDoesNotExists_thenReturnCustomerNotFoundException() throws CustomerNotFoundException {
-        CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
+        CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(11).initialCredit(0).build();
 
-        when(customerService.getCustomerById(11)).thenReturn(null);
+        when(customerService.getCustomerById(11)).thenThrow(new CustomerNotFoundException("Not found"));
         when(accountRepository.save(any(Account.class))).thenReturn(null);
 
         assertThrows(CustomerNotFoundException.class, ()-> accountServiceImpl.createAccount(createAccountRequest));
