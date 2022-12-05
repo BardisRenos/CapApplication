@@ -29,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
     private final CustomerServiceImpl customerService;
 
     /**
-     * This method creates a new account (First checks if the )
+     * This method creates a new account (First checks if the customer exists)
      * @param createAccountRequest The given object that contains the Customer ID and the initial value
      * @return An AccountDTO class
      * @throws CustomerNotFoundException If there is no customer with a given id then an exception rises
