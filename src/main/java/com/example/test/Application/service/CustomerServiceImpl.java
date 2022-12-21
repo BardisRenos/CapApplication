@@ -7,6 +7,7 @@ import com.example.test.Application.entity.Customer;
 import com.example.test.Application.entity.Transaction;
 import com.example.test.Application.exception.CustomerNotFoundException;
 import com.example.test.Application.mapper.CustomerMapper;
+import com.example.test.Application.request.CreateAccountRequest;
 import com.example.test.Application.service.Interfaces.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,6 +71,12 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(id)
                 .orElseThrow(()-> new CustomerNotFoundException(
                         String.format("There is no customer with the id : %d", id)));
+    }
+
+    protected Customer updateBalance(Customer customer, CreateAccountRequest createAccountRequest) {
+
+        customer.setBalance(customer.getBalance() - createAccountRequest.getInitialCredit());
+        return  customer;
     }
 }
 

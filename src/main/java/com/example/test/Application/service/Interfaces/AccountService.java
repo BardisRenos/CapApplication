@@ -2,6 +2,7 @@ package com.example.test.Application.service.Interfaces;
 
 import com.example.test.Application.dto.AccountDTO;
 import com.example.test.Application.exception.CustomerNotFoundException;
+import com.example.test.Application.exception.NotSufficientFundException;
 import com.example.test.Application.request.CreateAccountRequest;
 
 /**
@@ -9,5 +10,5 @@ import com.example.test.Application.request.CreateAccountRequest;
  */
 public interface AccountService {
 
-    AccountDTO createAccount(CreateAccountRequest createAccountRequest) throws CustomerNotFoundException;
+    AccountDTO createAccount(CreateAccountRequest createAccountRequest) throws CustomerNotFoundException, NotSufficientFundException;
 }

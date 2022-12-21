@@ -8,6 +8,7 @@ import com.example.test.Application.entity.Account;
 import com.example.test.Application.entity.Customer;
 import com.example.test.Application.entity.Transaction;
 import com.example.test.Application.exception.CustomerNotFoundException;
+import com.example.test.Application.exception.NotSufficientFundException;
 import com.example.test.Application.request.CreateAccountRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void testCreateAccount_whenInitialCreditIsZero_shouldReturnAccountDto() throws CustomerNotFoundException {
+    void testCreateAccount_whenInitialCreditIsZero_shouldReturnAccountDto() throws CustomerNotFoundException, NotSufficientFundException {
         CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
 
         Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
@@ -61,7 +62,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void testCreateAccount_whenInitialCreditIsTen_thenReturnAccountTransactionDTO() throws CustomerNotFoundException {
+    void testCreateAccount_whenInitialCreditIsTen_thenReturnAccountTransactionDTO() throws CustomerNotFoundException, NotSufficientFundException {
         CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(10).build();
 
         Account account = new Account(1, 10, LocalDateTime.now());
