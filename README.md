@@ -48,7 +48,7 @@ GET api/v1/customers - Retrieves all customers.
 The repository can be dowloaded via command line:
 
 ```git
-git clone https://github.com/BardisRenos/CapApplication.git
+git clone https://github.com/BardisRenos/RestApplicationCapTest.git
 ```
 
 In order to clean and install the Maven repository dependencies. 
