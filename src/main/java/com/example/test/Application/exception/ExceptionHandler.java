@@ -16,4 +16,9 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleCustomerNotFound(Exception ex) {
         return new ResponseEntity<>(ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler({NotSufficientFundException.class})
+    public ResponseEntity<Object> handleNotSufficientFundException(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), new HttpHeaders(), HttpStatus.FORBIDDEN);
+    }
 }

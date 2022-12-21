@@ -2,6 +2,7 @@ package com.example.test.Application.controller;
 
 import com.example.test.Application.dto.AccountDTO;
 import com.example.test.Application.exception.CustomerNotFoundException;
+import com.example.test.Application.exception.NotSufficientFundException;
 import com.example.test.Application.request.CreateAccountRequest;
 import com.example.test.Application.service.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class AccountController {
 
     @PostMapping("account")
     @ResponseStatus(HttpStatus.CREATED)
-    public AccountDTO createCurrentAccount(@Valid @RequestBody CreateAccountRequest createAccountRequest) throws CustomerNotFoundException {
+    public AccountDTO createCurrentAccount(@Valid @RequestBody CreateAccountRequest createAccountRequest) throws CustomerNotFoundException, NotSufficientFundException {
         return accountService.createAccount(createAccountRequest);
     }
 }

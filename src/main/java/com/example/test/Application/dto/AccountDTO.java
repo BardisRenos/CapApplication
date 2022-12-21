@@ -21,6 +21,7 @@ public class AccountDTO implements Serializable {
 
     private Integer accountID;
     private Integer initialCredit;
+    private Integer newBalance;
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateCreation;

@@ -2,10 +2,12 @@ package com.example.test.Application.service;
 
 import com.example.test.Application.dao.AccountRepository;
 import com.example.test.Application.dto.AccountDTO;
+import com.example.test.Application.dto.AccountTransactionDTO;
 import com.example.test.Application.entity.Account;
 import com.example.test.Application.entity.Customer;
 import com.example.test.Application.entity.Transaction;
 import com.example.test.Application.exception.CustomerNotFoundException;
+import com.example.test.Application.exception.NotSufficientFundException;
 import com.example.test.Application.mapper.AccountMapper;
 import com.example.test.Application.request.CreateAccountRequest;
 import com.example.test.Application.service.Interfaces.AccountService;
@@ -34,11 +36,16 @@ public class AccountServiceImpl implements AccountService {
      * @return An AccountDTO class
      */
     @Override
-    public AccountDTO createAccount(CreateAccountRequest createAccountRequest) throws CustomerNotFoundException {
+    public AccountDTO createAccount(CreateAccountRequest createAccountRequest) throws CustomerNotFoundException, NotSufficientFundException {
 
         Customer customer = customerService.getCustomerById(createAccountRequest.getCustomerID());
+        Integer balance = customer.getBalance();
 
         Account account = new Account();
+        checkAmount(customer.getBalance(), createAccountRequest.getInitialCredit());
+
+        customer = customerService.updateBalance(customer, createAccountRequest);
+
         account.setInitialCredit(createAccountRequest.getInitialCredit());
         account.setCustomer(customer);
         account.setDateCreation(LocalDateTime.now());
@@ -50,9 +57,20 @@ public class AccountServiceImpl implements AccountService {
 
                 account.getTransactions().add(transaction);
 
-                return AccountMapper.toAccountTransactionDTO(accountRepository.save(account));
+                AccountTransactionDTO accountTransactionDTO = AccountMapper.toAccountTransactionDTO(accountRepository.save(account));
+                accountTransactionDTO.setNewBalance(balance-createAccountRequest.getInitialCredit());
+                return accountTransactionDTO;
             }
 
-        return AccountMapper.toAccountDTO(accountRepository.save(account));
+        AccountDTO accountDTO = AccountMapper.toAccountDTO(accountRepository.save(account));
+        accountDTO.setNewBalance(customer.getBalance()-createAccountRequest.getInitialCredit());
+        return accountDTO;
+    }
+
+    private void checkAmount(Integer balance, Integer initialCredit) throws NotSufficientFundException {
+
+        if (balance<initialCredit) {
+            throw new NotSufficientFundException(String.format("The balance is not sufficient for the amount %s", initialCredit));
+        }
     }
 }

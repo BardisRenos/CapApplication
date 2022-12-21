@@ -17,8 +17,8 @@ public class AccountTransactionDTO extends AccountDTO {
 
     private List<Transaction> transactions;
 
-    public AccountTransactionDTO(Integer accountID, Integer initialCredit, LocalDateTime dateCreation, List<Transaction> transactions) {
-        super(accountID, initialCredit, dateCreation);
+    public AccountTransactionDTO(Integer accountID, Integer initialCredit, Integer newBalance, LocalDateTime dateCreation, List<Transaction> transactions) {
+        super(accountID, initialCredit, newBalance, dateCreation);
         this.transactions = transactions;
     }
 }

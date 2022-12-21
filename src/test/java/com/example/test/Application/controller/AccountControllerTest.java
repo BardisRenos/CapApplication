@@ -76,7 +76,7 @@ class AccountControllerTest {
 
         CreateAccountRequest request = CreateAccountRequest.builder().customerID(1).initialCredit(10).build();
         AccountTransactionDTO accountTransactionDTO =
-                new AccountTransactionDTO(10, 10, LocalDateTime.now(),
+                new AccountTransactionDTO(10, 10, 90, LocalDateTime.now(),
                         List.of(new Transaction(1, 10, LocalDateTime.now())));
 
         when(accountService.createAccount(any(CreateAccountRequest.class))).thenReturn(accountTransactionDTO);
