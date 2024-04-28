@@ -25,4 +25,26 @@ public class AccountDTO implements Serializable {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateCreation;
+
+    public void setNewBalance(Integer newBalance) {
+        this.newBalance = newBalance;
+    }
+
+    public Integer getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(Integer accountID) {
+        this.accountID = accountID;
+    }
+
+    public Integer getNewBalance() {
+        return newBalance;
+    }
+
+
+    public LocalDateTime getDateCreation() {
+        return dateCreation;
+    }
+
 }

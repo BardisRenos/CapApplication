@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 @Table(name = "account")
 public class Account implements Serializable {
@@ -53,5 +53,12 @@ public class Account implements Serializable {
         this.accountID = accountID;
         this.initialCredit = initialCredit;
         this.dateCreation = dateCreation;
+    }
+
+    public Account() {
+    }
+
+    public Integer getInitialCredit() {
+        return initialCredit;
     }
 }

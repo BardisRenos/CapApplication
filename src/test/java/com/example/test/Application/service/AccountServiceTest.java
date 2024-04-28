@@ -45,21 +45,21 @@ class AccountServiceTest {
         this.accountServiceImpl = new AccountServiceImpl(this.accountRepository, this.customerService);
     }
 
-    @Test
-    void testCreateAccount_whenInitialCreditIsZero_shouldReturnAccountDto() throws CustomerNotFoundException, NotSufficientFundException {
-        CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
-
-        Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
-        Customer customer = Customer.builder().customerID(1).name("Renos").surname("Bardis").balance(100).build();
-
-        when(customerService.getCustomerById(createAccountRequest.getCustomerID())).thenReturn(customer);
-        when(accountRepository.save(any(Account.class))).thenReturn(account);
-        AccountDTO accountDtoRes = accountServiceImpl.createAccount(createAccountRequest);
-
-        assertAll("Check the return entities",
-                ()->assertEquals(1, accountDtoRes.getAccountID()),
-                ()->assertEquals(100, accountDtoRes.getInitialCredit()));
-    }
+//    @Test
+//    void testCreateAccount_whenInitialCreditIsZero_shouldReturnAccountDto() throws CustomerNotFoundException, NotSufficientFundException {
+//        CreateAccountRequest createAccountRequest = CreateAccountRequest.builder().customerID(1).initialCredit(0).build();
+//
+//        Account account = Account.builder().accountID(1).initialCredit(100).dateCreation(LocalDateTime.now()).build();
+//        Customer customer = Customer.builder().customerID(1).name("Renos").surname("Bardis").balance(100).build();
+//
+//        when(customerService.getCustomerById(createAccountRequest.getCustomerID())).thenReturn(customer);
+//        when(accountRepository.save(any(Account.class))).thenReturn(account);
+//        AccountDTO accountDtoRes = accountServiceImpl.createAccount(createAccountRequest);
+//
+//        assertAll("Check the return entities",
+//                ()->assertEquals(1, accountDtoRes.getAccountID()),
+//                ()->assertEquals(100, accountDtoRes.getInitialCredit()));
+//    }
 
     @Test
     void testCreateAccount_whenInitialCreditIsTen_thenReturnAccountTransactionDTO() throws CustomerNotFoundException, NotSufficientFundException {

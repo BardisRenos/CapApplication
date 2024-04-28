@@ -23,12 +23,16 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
     private final CustomerServiceImpl customerService;
+
+    public AccountServiceImpl(AccountRepository accountRepository, CustomerServiceImpl customerService) {
+        this.accountRepository = accountRepository;
+        this.customerService = customerService;
+    }
 
     /**
      * This method creates a new account (First checks if the customer exists)

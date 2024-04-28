@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Entity
-@NoArgsConstructor
+//@NoArgsConstructor
 @Table(name = "transaction")
 public class Transaction implements Serializable {
 
@@ -42,5 +42,8 @@ public class Transaction implements Serializable {
         this.transactionID = transactionID;
         this.amount = amount;
         this.time = time;
+    }
+
+    public Transaction() {
     }
 }

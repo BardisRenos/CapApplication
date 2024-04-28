@@ -21,4 +21,12 @@ public class CreateAccountRequest {
     @NotNull
     @Min(value = 0, message = "Initial Credit value must not be negative value")
     private Integer initialCredit;
+
+    public Integer getInitialCredit() {
+        return initialCredit;
+    }
+
+    public Integer getCustomerID() {
+        return customerID;
+    }
 }

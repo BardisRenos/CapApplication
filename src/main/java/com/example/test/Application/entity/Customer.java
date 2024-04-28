@@ -47,4 +47,12 @@ public class Customer implements Serializable {
         this.surname = surname;
         this.balance = balance;
     }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
 }
